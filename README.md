@@ -140,6 +140,8 @@ Mekanisme Routing ada di file `index.php`:
 - **Lihat Data:** `index.php?mod=artikel`
 - **Tambah Data:** `index.php?mod=artikel&act=tambah`
 
+---
+
 ### 2. Konsep Modularisasi
 Kode program dipecah menjadi modul-modul kecil agar mudah dikelola (Maintainable):
 
