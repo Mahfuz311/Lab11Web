@@ -160,6 +160,8 @@ Kode program dipecah menjadi modul-modul kecil agar mudah dikelola (Maintainable
 - URL: http://localhost/lab11_php_oop/index.php?mod=home
 - Tampilan: Selamat datang.
 
+---
+
 ### 2. Halaman Data Barang
 
 <img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/10.%20output.png" width="800">
@@ -167,10 +169,13 @@ Kode program dipecah menjadi modul-modul kecil agar mudah dikelola (Maintainable
 - URL: http://localhost/lab11_php_oop/index.php?mod=artikel
 - Tampilan: Tabel data barang.
 
+---
+
 ### 3. Halaman Tambah Data
 
 <img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/11.%20output.png" width="800">
 
----
 - URL: http://localhost/lab11_php_oop/index.php?mod=artikel&act=tambah
 - Tampilan: Form tambah data.
+
+---
