@@ -1,4 +1,4 @@
-# Praktikum 11 - PHP OOP Lanjutan
+# Praktikum 11 - 12 PHP OOP
 **Nama:** Mahfuz Fauzi  
 **Kelas:** TI.24.A.3  
 **NIM:** 312410412  
@@ -10,174 +10,215 @@
 
 ## 🧩 Langkah-langkah Praktikum
 
-### Menjalankan MySQL Server
+## A. Persiapan Database
 
-Untuk menjalankan MySQL Server dari menu XAMPP Control panel.
+Kita membutuhkan tabel untuk menyimpan data pengguna (admin).
 
-<img src="https://github.com/Mahfuz311/Lab8Web/blob/cc1f6d0de626cf37fc95bafc566f4ea340f1e9a4/screenshot/1%20xampp.png" width="40%">
+## 1. Buat Tabel Users
 
----
-
-### Buat folder baru dengan nama ```lab11_php_oop``` pada docroot webserver ```(htdocs)```
-
-Akses direktory tersebut pada web server dengan mengakses URL: http://localhost/lab11_php_oop/
-
-Outputnya:
-
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/0.%20output.png" width="800">
-
----
-
-### A. Persiapan Struktur Folder
+Jalankan SQL berikut di phpMyAdmin pada database latihan_oop:
 
 ```
-lab11_php_oop/
-│
-├── .htaccess           <-- Untuk keamanan & pengaturan URL
-├── config.php          <-- Konfigurasi username/password database
-├── index.php           <-- FILE UTAMA (Router / Pintu Masuk)
-│
-├── class/              <-- Folder khusus Logika Backend
-│   └── database.php    <-- Class Database (CRUD)
-│   └── form.php
-|
-├── gambar/             <-- Folder khusus menyimpan foto barang
-│   ├── hp_iphone.png   
-│   └── hp_samsung.png  
-|   └── hp_xiaomi.png
-|   └── pocof6.png
-│
-├── module/             <-- Folder khusus Halaman Konten
-│   └── artikel/
-│       ├── index.php   <-- Halaman Tabel Data (List)
-│       ├── tambah.php  <-- Form Tambah Data
-│       └── ubah.php    <-- Form Ubah Data
-│
-└── template/           <-- Folder khusus Tampilan (UI)
-    ├── header.php      <-- Bagian Atas
-    ├── footer.php      <-- Bagian Bawah
-    └── sidebar.php     <-- Menu Samping
+CREATE TABLE users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) NOT NULL,
+password VARCHAR(255) NOT NULL,
+nama VARCHAR(100)
+);
 ```
 
-**Langkah 1:** Memindahkan file `Database.php` dan `Form.php` (dari praktikum sebelumnya) ke
-dalam folder `class/`.
-
-**Code `from.php`:**
-
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/1.%20vscode.png" width="40%">
-
-
-**Code `database.php`:**
-
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/2.%20vscode.png" width="40%">
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/1.%20cmd.png" width="40%">
 
 ---
 
-### B. Konfigurasi Dasar
+## 2. Insert Data Dummy (User Admin)
 
-**Code `config.php`:**
-
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/3.%20vscode.png" width="40%">
-
----
-
-## TUGAS DAN IMPLEMENTASI
-
-### Tugas Praktikum Web: Implementasi Modularisasi & Routing
-
-Project ini merupakan hasil refactoring dari struktur PHP native (flat) menjadi struktur yang lebih rapi menggunakan konsep **Modularisasi** dan **Routing**.
-
-## 📂 Struktur Folder
-Struktur project telah diubah untuk memisahkan antara logika (backend), tampilan (frontend/template), dan konten (module).
+Password harus di-hash (dienkripsi). Untuk contoh ini, kita buat user dengan password
+"admin123".
+Jalankan SQL ini:
 
 ```
-lab11_php_oop/
-├── class/              # (Modularisasi Backend)
-│   └── database.php    # Class OOP untuk koneksi & CRUD database
-|   └── from.php
-├── gambar
-|   └── hp_iphone.png
-|   └── hp_samsung.png
-|   └── hp_xiaomi.png
-|   └── pocof6.png
-├── module/             # (Modularisasi Konten)
-│   └── artikel/
-│       ├── index.php   # Tampilan tabel data
-│       ├── tambah.php  # Form tambah data
-│       └── ubah.php    # Form ubah data
-├── template/           # (Modularisasi UI)
-│   ├── header.php      # Bagian atas halaman
-│   ├── footer.php      # Bagian bawah halaman
-│   └── sidebar.php     # Menu navigasi
-├── config.php          # Konfigurasi Database
-└── index.php           # (ROUTING UTAMA) Pintu masuk aplikasi
+-- Password hash dari "admin123"
+INSERT INTO users (username, password, nama)
+VALUES ('admin', '$2y$10$uWdZ2x.hQfGqGz/..q7wue.3/a/e/e/e/e/e/e/e/e/e/e',
+'Administrator');
 ```
 
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/4.%20folder_vscode.png" width="40%">
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/2.%20cmd.png">
 
 ---
 
-## 🚀 Implementasi Konsep
+## B. Update Routing (index.php)
 
-### 1. Konsep Routing
-Aplikasi ini tidak lagi diakses dengan memanggil file secara langsung (seperti `tambah.php`), melainkan melalui **satu pintu masuk** yaitu `index.php`.
+Saya memodifikasi index.php agar mengecek apakah user sudah login atau belum
+sebelum membuka halaman tertentu.
 
-Mekanisme Routing ada di file `index.php`:
+**Buka dan edit file `index.php`:**
 
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/5.%20vscode.png" width="40%">
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/6.%20vscode.png" width="40%">
-
-- Menggunakan parameter URL `?mod=` untuk menentukan halaman.
-- Menggunakan parameter URL `&act=` untuk menentukan aksi (tambah/ubah).
-- Kesimpulan: "Dengan cara ini, navigasi web menjadi terpusat di satu file."
-
-**Code `.htaccess`:**
-
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/7.1%20vscode.png" width="40%">
-
-**Contoh URL:**
-- **Home:** `index.php?mod=home`
-- **Lihat Data:** `index.php?mod=artikel`
-- **Tambah Data:** `index.php?mod=artikel&act=tambah`
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/3.%20vscode.png" width="40%">
 
 ---
 
-### 2. Konsep Modularisasi
-Kode program dipecah menjadi modul-modul kecil agar mudah dikelola (Maintainable):
+## C. Membuat Modul User (Login & Logout)
 
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/7.%20vscode.png" width="40%">
+Buat folder baru: `module/user/`.
 
-- **Database Class:** Koneksi dan query database dibungkus dalam Class `Database` di `class/database.php`.
-- **Template Separation:** Bagian desain yang berulang (`header`, `sidebar`, `footer`) dipisahkan ke folder `template/`. File konten hanya berisi data inti saja.
-- **Config:** Konfigurasi user/password database dipisah di `config.php` agar lebih aman dan mudah diganti.
+## 1. File: `module/user/login.php`
 
----
+Halaman ini berisi Form Login dan logika pemrosesan saat tombol submit ditekan.
 
-## ⚙️ Demonstrasi di Browser
-
-### 1. Halaman Home
-
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/9.%20output.png" width="800">
-
-- URL: http://localhost/lab11_php_oop/index.php?mod=home
-- Tampilan: Selamat datang.
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/4.%20vscode.png" width="40%">
 
 ---
 
-### 2. Halaman Data Barang
+## 2. File: module/user/logout.php
 
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/10.%20output.png" width="800">
+File untuk menghapus session.
 
-- URL: http://localhost/lab11_php_oop/index.php?mod=artikel
-- Tampilan: Tabel data barang.
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/5.%20vscode.png" width="40%">
 
 ---
 
-### 3. Halaman Tambah Data
+## D. Penyesuaian Tampilan (Header)
 
-<img src="https://github.com/Mahfuz311/Lab11Web/blob/096e58a2502887590fd0f475adf3ba1b6e087ab1/screeenshot/11.%20output.png" width="800">
+Kita perlu mengubah template/header.php agar menu navigasi berubah dinamis:
+- Jika Belum Login: Tampilkan menu Home dan Login.
+- Jika Sudah Login: Tampilkan menu Home, Artikel, dan Logout.
 
-- URL: http://localhost/lab11_php_oop/index.php?mod=artikel&act=tambah
-- Tampilan: Form tambah data.
+**Update `template/header.php`:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/6.%20vscode.png" width="40%">
+
+---
+
+## E. Langkah Uji Coba
+
+### 1. Akses Halaman Artikel (Tanpa Login):
+
+Buka browser: http://localhost/lab11_php_oop/artikel/index.
+Otomatis terlempar (redirect) ke halaman user/login.
+
+**Output:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/7.%20web.png" width="800">
+
+---
+
+### 2. Lakukan Login:
+
+Masukkan username: admin dan password: admin123.
+Hasil: Jika sukses, kamu akan diarahkan ke halaman artikel, dan di pojok kanan atas
+muncul menu "Logout (Administrator)".
+
+**Output:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/8.%20web.png"  width="800">
+
+saya memasukan username: Admin dan Password: Admin123
+
+---
+
+### 3. Akses CRUD
+
+### Tambah Data Barang:
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/9.%20web.png" width="800">
+
+**Disini saya menambahkan Data Barang: Iphone 17 Pro Max.**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/10.%20web.png" width="800">
+
+Lalu klik Simpan.
+
+**Hasil Outputnya:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/11.%20web.png" width="800">
+
+---
+
+### Edit Data Barang
+
+Mengedit Data Barang Poco F6:
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/12.%20web.png" width="800">
+
+**Mengubah Harga Jual, Harga Beli dan Jumlah Stok**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/13.%20web.png" width="800">
+
+Lalu Klik Simpan.
+
+**Hasil Outputnya:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/14.%20web.png" width="800">
+
+---
+
+### Hapus Data Barang
+
+Di sini saya akan menghapus Data barang Hp Poco F6, Klik ikon Hapus yang berwarna Merah, maka akan muncul Pop up Notifikasi:
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/15.%20web.png" width="800">
+
+Klik OK
+
+Maka Data Barang Akan terhapus.
+
+**Outputnya:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/16.%20web.png" width="800">
+
+**SEMUA BERJALAN NORMAL**
+
+---
+
+### Logout
+
+Klik Menu `Logout` yang ada di pojok kanan atas halaman.
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/16.%20web.png" width="800">
+
+Maka Akan Kembali ke halaman `Login`.
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/17.%20web.png" width="800">
+
+---
+
+## F. Tugas Praktikum
+
+### 1. Tambahkan fitur "Profil". Buat halaman di module/user/profile.php yang menampilkan data user yang sedang login (Nama, Username) dan form untuk mengubah Password.
+
+**Outputnya:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/18.%20web.png" width="800">
+
+Disini saya Merubah Nama Lengkap dan mengganti passwordnya.
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/19.%20web.png" width="800">
+
+**Klik Simpan Perubahan**
+
+Maka Muncul "Profil berhasil diperbarui!"
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/20.%20web.png" width="800">
+
+**Saya akan Coba Login Menggunakan Password yang baru**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/22.%20web.png" width="800">
+
+Klik Login.
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/4dd65bbf5b309dccaf07733ee5f7634c3e44efcc/lab11_php_oop/screeenshot/23.%20web.png" width="800">
+
+Login Berhasil
+
+### 2. Implementasikan logika enkripsi password (password_hash) saat mengubah password di fitur profil tersebut.
+
+Sudah saya Implementasikan
+
+---
+
+## 📋 Deskripsi Proyek
+Aplikasi ini adalah sistem manajemen inventaris sederhana (Data Barang) yang dibangun menggunakan PHP Native dengan pendekatan **Object Oriented Programming (OOP)** dan struktur **Modular**. Aplikasi ini mencakup fitur autentikasi user, manajemen data barang (CRUD), upload file, serta fitur tambahan seperti pencarian dan pagination.
 
 ---
