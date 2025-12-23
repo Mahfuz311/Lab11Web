@@ -1,4 +1,4 @@
-# Praktikum 11 - 12 PHP OOP
+# Praktikum 11 - 12 - 13 & 14 PHP OOP
 **Nama:** Mahfuz Fauzi  
 **Kelas:** TI.24.A.3  
 **NIM:** 312410412  
@@ -222,3 +222,12 @@ Sudah saya Implementasikan
 Aplikasi ini adalah sistem manajemen inventaris sederhana (Data Barang) yang dibangun menggunakan PHP Native dengan pendekatan **Object Oriented Programming (OOP)** dan struktur **Modular**. Aplikasi ini mencakup fitur autentikasi user, manajemen data barang (CRUD), upload file, serta fitur tambahan seperti pencarian dan pagination.
 
 ---
+
+# Praktikum 13 & 14
+
+## Melengkapi link previous dan next sehingga ketika diklik akan mengarah ke halaman sebelumnya atau selanjutnya
+
+**Outputnya:**
+
+<img src="
+
