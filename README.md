@@ -225,9 +225,22 @@ Aplikasi ini adalah sistem manajemen inventaris sederhana (Data Barang) yang dib
 
 # Praktikum 13 & 14
 
-## Melengkapi link previous dan next sehingga ketika diklik akan mengarah ke halaman sebelumnya atau selanjutnya
+## Melengkapi Link Previous dan Next Sehingga Ketika diklik Akan Mengarah ke Halaman Sebelumnya atau Selanjutnya
 
 **Outputnya:**
 
-<img src="
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/6bce4e5cbc94bdb8890960c19a00ee7e16197091/screeenshot/Output_Page1.png" width="800">
 
+**Output Page 2:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/6bce4e5cbc94bdb8890960c19a00ee7e16197091/screeenshot/Output_Page2.png" width="800">
+
+## Menambahkan Pencarian Data
+
+**Outputnya:**
+
+<img src="https://github.com/Mahfuz311/Lab11Web/blob/6bce4e5cbc94bdb8890960c19a00ee7e16197091/screeenshot/Output_Search.png" width="800">
+
+Di sini saya memasukan kata "Samsung" di kolom pencarian maka, yang muncul hanya Produk dari Samsung.
+
+---
